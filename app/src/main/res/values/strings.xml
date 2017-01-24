@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Sample Casino</string>
+    <string name="no_bets">No bets</string>
+    <string name="no_more_bets">No more bets</string>
+    <string name="cancel">Cancel</string>
+</resources>
