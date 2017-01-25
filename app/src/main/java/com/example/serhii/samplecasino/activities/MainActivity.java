@@ -1,8 +1,9 @@
-package com.example.serhii.samplecasino;
+package com.example.serhii.samplecasino.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.serhii.samplecasino.R;
 import com.example.serhii.samplecasino.fragments.box_chooser.BoxChooserFragment;
 
 public class MainActivity extends AppCompatActivity {

@@ -16,6 +16,10 @@ public class Box {
         return bet;
     }
 
+    public void setBet(double bet) {
+        this.bet = bet;
+    }
+
     @Override
     public String toString() {
         return "Box{" +

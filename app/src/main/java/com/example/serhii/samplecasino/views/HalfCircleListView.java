@@ -1,27 +1,29 @@
 package com.example.serhii.samplecasino.views;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Space;
 
-import com.example.serhii.samplecasino.R;
+import com.example.serhii.samplecasino.activities.SetBetActivity;
 import com.example.serhii.samplecasino.entities.Box;
-import com.example.serhii.samplecasino.fragments.set_bet.SetBetFragment;
 
 import java.util.List;
 
 public class HalfCircleListView extends RelativeLayout {
     private List<Box> boxes;
-    private AppCompatActivity activity;
+    //    private AppCompatActivity activity;
+    public static final int OPEN_SET_BET_ACTIVITY = 0;
+
+    private Fragment fragment;
 
     public HalfCircleListView(Context context) {
         super(context);
@@ -46,11 +48,11 @@ public class HalfCircleListView extends RelativeLayout {
         setUpView();
     }
 
-    private void setUpView() {
+    public void setUpView() {
         if (boxes != null) {
             int boxesSize = boxes.size();
             int rows = boxesSize / 2 + boxesSize % 2;
-            int height = getHeight() / rows;
+            int height = 1000 / rows;
             double marginTop = 0;
             int weightCoefficient = 1;
             Context context = getContext();
@@ -84,19 +86,26 @@ public class HalfCircleListView extends RelativeLayout {
                         childLinearLayout.addView(space);
                     }
                     FloatingActionButton floatingActionButton = new FloatingActionButton(context);
+                    if (boxes.get(position).getBet() > 0) {
+                        floatingActionButton.setImageResource(android.R.drawable.ic_menu_camera);
+                        floatingActionButton.setRippleColor(Color.YELLOW);
+                    }
                     floatingActionButton.setTag(position);
                     position++;
                     floatingActionButton.setOnLongClickListener(view -> {
                         Box box = boxes.get((Integer) view.getTag());
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("boxNumber", box.getBoxNumber());
-                        Fragment fragment = new SetBetFragment();
-                        fragment.setArguments(bundle);
-                        activity.getSupportFragmentManager()
-                                .beginTransaction()
-                                .add(R.id.container, fragment)
-                                .addToBackStack(SetBetFragment.class.getSimpleName())
-                                .commit();
+//                        Bundle bundle = new Bundle();
+//                        bundle.putInt("boxNumber", box.getBoxNumber());
+//                        Fragment fragment = new SetBetFragment();
+//                        fragment.setArguments(bundle);
+                        Intent intent = new Intent(context, SetBetActivity.class);
+                        intent.putExtra("box_number", box.getBoxNumber());
+                        fragment.startActivityForResult(intent, OPEN_SET_BET_ACTIVITY);
+//                        activity.getSupportFragmentManager()
+//                                .beginTransaction()
+//                                .add(R.id.container, fragment)
+//                                .addToBackStack(SetBetFragment.class.getSimpleName())
+//                                .commit();
 //                        Toast.makeText(context, box.toString(), Toast.LENGTH_SHORT).show();
                         return true;
                     });
@@ -119,7 +128,11 @@ public class HalfCircleListView extends RelativeLayout {
         this.boxes = boxes;
     }
 
-    public void setActivity(AppCompatActivity activity) {
-        this.activity = activity;
+//    public void setActivity(AppCompatActivity activity) {
+//        this.activity = activity;
+//    }
+
+    public void setFragment(Fragment fragment) {
+        this.fragment = fragment;
     }
 }
