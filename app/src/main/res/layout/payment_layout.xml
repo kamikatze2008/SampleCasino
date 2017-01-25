@@ -25,13 +25,13 @@
                 android:id="@+id/no_game_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/no_bets" />
+                android:text="@string/no_game" />
 
             <Button
                 android:id="@+id/no_more_game_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/no_more_bets"
+                android:text="@string/no_more_game"
                 android:visibility="gone" />
         </RelativeLayout>
 

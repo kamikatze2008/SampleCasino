@@ -33,6 +33,7 @@ public class CombinationActivity extends AppCompatActivity {
             Intent returnIntent = new Intent();
             intent.putExtra("bet", bet);
             setResult(RESULT_OK, returnIntent);
+            finish();
         });
         listView = (ListView) findViewById(R.id.combination_list_view);
         listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, new Integer[]{1, 2, 3, 4, 5, 6, 7}));
