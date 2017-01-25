@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,7 +12,6 @@ import com.example.serhii.samplecasino.R;
 public class SetBetActivity extends AppCompatActivity {
     private TextView betTextView;
     private Button confirmButton;
-    private GridLayout gridLayout;
     int boxNumber = -1;
 
     @Override
