@@ -12,8 +12,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.serhii.samplecasino.R;
+import com.example.serhii.samplecasino.activities.SetBetActivity;
 import com.example.serhii.samplecasino.entities.Box;
-import com.example.serhii.samplecasino.views.HalfCircleListView;
+import com.example.serhii.samplecasino.views.halfCircleListView.HalfCircleListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class BoxChooserFragment extends Fragment {
     private Button noMoreBetButton;
     private Button cancelAllButton;
 
+    public static final int OPEN_SET_BET_ACTIVITY = 0;
     private List<Box> boxList = new ArrayList<Box>() {{
         add(new Box(1));
         add(new Box(2));
@@ -50,7 +52,13 @@ public class BoxChooserFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         halfCircleListView = (HalfCircleListView) view.findViewById(R.id.half_circle_list_view);
         halfCircleListView.setBoxes(boxList);
-        halfCircleListView.setFragment(this);
+        halfCircleListView.setOnHalfCircleItemClick(box -> {
+            Intent intent = new Intent(getActivity(), SetBetActivity.class);
+            intent.putExtra("box_number", box.getBoxNumber());
+            startActivityForResult(intent, OPEN_SET_BET_ACTIVITY);
+//
+        });
+//        halfCircleListView.setFragment(this);
         betButton = (Button) view.findViewById(R.id.bet_button);
         betButton.setOnClickListener(buttonView -> new AlertDialog.Builder(getActivity())
                 .setTitle("Bet information")
@@ -97,7 +105,7 @@ public class BoxChooserFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == HalfCircleListView.OPEN_SET_BET_ACTIVITY && resultCode == RESULT_OK && data != null) {
+        if (requestCode == OPEN_SET_BET_ACTIVITY && resultCode == RESULT_OK && data != null) {
             int boxNumber = data.getIntExtra("box_number", -1);
             double bet = data.getDoubleExtra("bet", 0);
             boolean anyBetWasMade = false;

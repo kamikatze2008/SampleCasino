@@ -1,19 +1,16 @@
-package com.example.serhii.samplecasino.views;
+package com.example.serhii.samplecasino.views.halfCircleListView;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Space;
 
-import com.example.serhii.samplecasino.activities.SetBetActivity;
 import com.example.serhii.samplecasino.entities.Box;
 
 import java.util.List;
@@ -21,9 +18,9 @@ import java.util.List;
 public class HalfCircleListView extends RelativeLayout {
     private List<Box> boxes;
     //    private AppCompatActivity activity;
-    public static final int OPEN_SET_BET_ACTIVITY = 0;
 
-    private Fragment fragment;
+    //    private Fragment fragment;
+    private OnHalfCircleItemClick onHalfCircleItemClick;
 
     public HalfCircleListView(Context context) {
         super(context);
@@ -92,23 +89,30 @@ public class HalfCircleListView extends RelativeLayout {
                     }
                     floatingActionButton.setTag(position);
                     position++;
-                    floatingActionButton.setOnLongClickListener(view -> {
-                        Box box = boxes.get((Integer) view.getTag());
+                    floatingActionButton.setOnLongClickListener(v -> {
+                        Box box = boxes.get((Integer) v.getTag());
+                        if (onHalfCircleItemClick != null) {
+                            onHalfCircleItemClick.onClick(box);
+                        }
+                        return true;
+                    });
+//                    floatingActionButton.setOnLongClickListener(view -> {
+//                        Box box = boxes.get((Integer) view.getTag());
 //                        Bundle bundle = new Bundle();
 //                        bundle.putInt("boxNumber", box.getBoxNumber());
 //                        Fragment fragment = new SetBetFragment();
 //                        fragment.setArguments(bundle);
-                        Intent intent = new Intent(context, SetBetActivity.class);
-                        intent.putExtra("box_number", box.getBoxNumber());
-                        fragment.startActivityForResult(intent, OPEN_SET_BET_ACTIVITY);
+//                        Intent intent = new Intent(context, SetBetActivity.class);
+//                        intent.putExtra("box_number", box.getBoxNumber());
+//                        fragment.startActivityForResult(intent, OPEN_SET_BET_ACTIVITY);
 //                        activity.getSupportFragmentManager()
 //                                .beginTransaction()
 //                                .add(R.id.container, fragment)
 //                                .addToBackStack(SetBetFragment.class.getSimpleName())
 //                                .commit();
 //                        Toast.makeText(context, box.toString(), Toast.LENGTH_SHORT).show();
-                        return true;
-                    });
+//                        return true;
+//                    });
                     LinearLayout.LayoutParams fabLayoutParams =
                             new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     floatingActionButton.setLayoutParams(fabLayoutParams);
@@ -128,11 +132,15 @@ public class HalfCircleListView extends RelativeLayout {
         this.boxes = boxes;
     }
 
-//    public void setActivity(AppCompatActivity activity) {
+    public void setOnHalfCircleItemClick(OnHalfCircleItemClick onHalfCircleItemClick) {
+        this.onHalfCircleItemClick = onHalfCircleItemClick;
+    }
+
+    //    public void setActivity(AppCompatActivity activity) {
 //        this.activity = activity;
 //    }
 
-    public void setFragment(Fragment fragment) {
-        this.fragment = fragment;
-    }
+//    public void setFragment(Fragment fragment) {
+//        this.fragment = fragment;
+//    }
 }
