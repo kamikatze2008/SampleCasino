@@ -21,6 +21,12 @@
         <activity
             android:name=".activities.SetBetActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.PaymentActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.CombinationActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

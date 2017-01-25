@@ -1,8 +1,11 @@
 package com.example.serhii.samplecasino.entities;
 
-public class Box {
+import java.io.Serializable;
+
+public class Box implements Serializable {
     private int boxNumber;
     private double bet;
+    private double winAmount;
 
     public Box(int boxNumber) {
         this.boxNumber = boxNumber;
@@ -18,6 +21,14 @@ public class Box {
 
     public void setBet(double bet) {
         this.bet = bet;
+    }
+
+    public double getWinAmount() {
+        return winAmount;
+    }
+
+    public void setWinAmount(double winAmount) {
+        this.winAmount = winAmount;
     }
 
     @Override

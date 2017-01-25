@@ -4,4 +4,8 @@
     <string name="no_more_bets">No more bets</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="no_game">No game</string>
+    <string name="no_more_game">No more game</string>
+    <string name="game">Game</string>
+    <string name="result">Result</string>
 </resources>

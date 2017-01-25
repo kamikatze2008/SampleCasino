@@ -1,5 +1,6 @@
 package com.example.serhii.samplecasino.fragments.box_chooser;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,12 +13,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.serhii.samplecasino.R;
+import com.example.serhii.samplecasino.activities.PaymentActivity;
 import com.example.serhii.samplecasino.activities.SetBetActivity;
 import com.example.serhii.samplecasino.entities.Box;
 import com.example.serhii.samplecasino.views.halfCircleListView.HalfCircleListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -29,7 +30,7 @@ public class BoxChooserFragment extends Fragment {
     private Button cancelAllButton;
 
     public static final int OPEN_SET_BET_ACTIVITY = 0;
-    private List<Box> boxList = new ArrayList<Box>() {{
+    private ArrayList<Box> boxList = new ArrayList<Box>() {{
         add(new Box(1));
         add(new Box(2));
         add(new Box(3));
@@ -69,7 +70,11 @@ public class BoxChooserFragment extends Fragment {
         noMoreBetButton = (Button) view.findViewById(R.id.no_more_bet_button);
         noMoreBetButton.setOnClickListener(buttonView -> {
             sendMessageString();
-            //TODO open next screen
+            Activity activity = getActivity();
+            Intent intent = new Intent(activity, PaymentActivity.class);
+            intent.putExtra("box_list", boxList);
+            activity.startActivity(intent);
+            activity.finish();
         });
         cancelAllButton = (Button) view.findViewById(R.id.cancel_button);
         cancelAllButton.setOnClickListener(buttonView -> {
