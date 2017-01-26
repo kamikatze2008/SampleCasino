@@ -38,8 +38,6 @@ public class BoxChooserFragment extends Fragment {
         add(new Box(5));
         add(new Box(6));
         add(new Box(7));
-//        add(new Box(8));
-//        add(new Box(9));
     }};
 
     @Nullable
@@ -57,9 +55,7 @@ public class BoxChooserFragment extends Fragment {
             Intent intent = new Intent(getActivity(), SetBetActivity.class);
             intent.putExtra("box_number", box.getBoxNumber());
             startActivityForResult(intent, OPEN_SET_BET_ACTIVITY);
-//
         });
-//        halfCircleListView.setFragment(this);
         betButton = (Button) view.findViewById(R.id.bet_button);
         betButton.setOnClickListener(buttonView -> new AlertDialog.Builder(getActivity())
                 .setTitle("Bet information")
@@ -87,9 +83,7 @@ public class BoxChooserFragment extends Fragment {
             halfCircleListView.removeAllViews();
             halfCircleListView.setBoxes(boxList);
             halfCircleListView.setUpView();
-            halfCircleListView.invalidate();
         });
-//        halfCircleListView.setActivity((AppCompatActivity) getActivity());
     }
 
     private void sendMessageString() {
@@ -128,7 +122,6 @@ public class BoxChooserFragment extends Fragment {
             halfCircleListView.setBoxes(boxList);
             halfCircleListView.removeAllViews();
             halfCircleListView.setUpView();
-            halfCircleListView.invalidate();
         }
     }
 }

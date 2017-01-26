@@ -17,9 +17,7 @@ import java.util.List;
 
 public class HalfCircleListView extends RelativeLayout {
     private List<Box> boxes;
-    //    private AppCompatActivity activity;
 
-    //    private Fragment fragment;
     private OnHalfCircleItemClick onHalfCircleItemClick;
 
     public HalfCircleListView(Context context) {
@@ -96,23 +94,6 @@ public class HalfCircleListView extends RelativeLayout {
                         }
                         return true;
                     });
-//                    floatingActionButton.setOnLongClickListener(view -> {
-//                        Box box = boxes.get((Integer) view.getTag());
-//                        Bundle bundle = new Bundle();
-//                        bundle.putInt("boxNumber", box.getBoxNumber());
-//                        Fragment fragment = new SetBetFragment();
-//                        fragment.setArguments(bundle);
-//                        Intent intent = new Intent(context, SetBetActivity.class);
-//                        intent.putExtra("box_number", box.getBoxNumber());
-//                        fragment.startActivityForResult(intent, OPEN_SET_BET_ACTIVITY);
-//                        activity.getSupportFragmentManager()
-//                                .beginTransaction()
-//                                .add(R.id.container, fragment)
-//                                .addToBackStack(SetBetFragment.class.getSimpleName())
-//                                .commit();
-//                        Toast.makeText(context, box.toString(), Toast.LENGTH_SHORT).show();
-//                        return true;
-//                    });
                     LinearLayout.LayoutParams fabLayoutParams =
                             new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     floatingActionButton.setLayoutParams(fabLayoutParams);
@@ -135,12 +116,4 @@ public class HalfCircleListView extends RelativeLayout {
     public void setOnHalfCircleItemClick(OnHalfCircleItemClick onHalfCircleItemClick) {
         this.onHalfCircleItemClick = onHalfCircleItemClick;
     }
-
-    //    public void setActivity(AppCompatActivity activity) {
-//        this.activity = activity;
-//    }
-
-//    public void setFragment(Fragment fragment) {
-//        this.fragment = fragment;
-//    }
 }
