@@ -69,7 +69,7 @@ public class PaymentActivity extends AppCompatActivity {
 
                         }
                     }
-                    Toast.makeText(this, stringBuilder.toString(), Toast.LENGTH_LONG);
+                    Toast.makeText(this, stringBuilder.toString(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     finish();
