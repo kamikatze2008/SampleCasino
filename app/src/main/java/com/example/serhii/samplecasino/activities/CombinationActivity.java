@@ -17,6 +17,7 @@ public class CombinationActivity extends AppCompatActivity {
     TextView winTextView;
     ListView listView;
     Button confirmButton;
+    int value;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,20 +26,22 @@ public class CombinationActivity extends AppCompatActivity {
         setResult(RESULT_CANCELED);
         Intent intent = getIntent();
         double bet = intent.getDoubleExtra("bet", 0);
+        int boxNumber = intent.getIntExtra("box_number", 0);
         betTextView = (TextView) findViewById(R.id.bet_text_view);
         betTextView.setText(bet + "$");
         winTextView = (TextView) findViewById(R.id.win_text_view);
         confirmButton = (Button) findViewById(R.id.confirm_button);
         confirmButton.setOnClickListener(v -> {
             Intent returnIntent = new Intent();
-            intent.putExtra("bet", bet);
+            intent.putExtra("box_number", boxNumber);
+            intent.putExtra("combination", value);
             setResult(RESULT_OK, returnIntent);
             finish();
         });
         listView = (ListView) findViewById(R.id.combination_list_view);
         listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, new Integer[]{1, 2, 3, 4, 5, 6, 7}));
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Integer value = Integer.parseInt(((TextView) view).getText().toString());
+            value = Integer.parseInt(((TextView) view).getText().toString());
             winTextView.setText("" + (bet * value) + "$");
         });
     }

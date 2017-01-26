@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.serhii.samplecasino.R;
 import com.example.serhii.samplecasino.entities.Box;
@@ -33,15 +34,12 @@ public class PaymentActivity extends AppCompatActivity {
         if (receivedIntent != null) {
             boxList = (List<Box>) receivedIntent.getSerializableExtra("box_list");
             halfCircleListView.setBoxes(boxList);
-            halfCircleListView.setOnHalfCircleItemClick(box -> new AlertDialog.Builder(this)
-                    .setTitle("Game results")
-                    .setPositiveButton(R.string.game, (dialog, which) -> {
-                        Intent intent = new Intent(this, CombinationActivity.class);
-                        intent.putExtra("bet", box.getBet());
-                        startActivityForResult(intent, OPEN_COMBINATION_ACTIVITY);
-                    })
-                    .setNegativeButton(R.string.no_game, (dialog, which) -> dialog.cancel())
-                    .show());
+            halfCircleListView.setOnHalfCircleItemClick(box -> {
+                Intent intent = new Intent(this, CombinationActivity.class);
+                intent.putExtra("bet", box.getBet());
+                intent.putExtra("box_number", box.getBoxNumber());
+                startActivityForResult(intent, OPEN_COMBINATION_ACTIVITY);
+            });
         }
         noGameButton.setOnClickListener(view -> showStartAgainAlertDialog());
         noMoreGameButton.setOnClickListener(view -> showStartAgainAlertDialog());
@@ -60,6 +58,18 @@ public class PaymentActivity extends AppCompatActivity {
                 .setTitle("New game")
                 .setMessage("Are you sure?")
                 .setPositiveButton("Yes", (dialog, which) -> {
+                    long timestamp = System.currentTimeMillis();
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (Box box : boxList) {
+                        if (box.getWinAmount() > 0) {
+                            stringBuilder.append("bet_id|")
+                                    .append(box.getWinAmount())
+                                    .append("|")
+                                    .append(timestamp);
+
+                        }
+                    }
+                    Toast.makeText(this, stringBuilder.toString(), Toast.LENGTH_LONG);
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -72,7 +82,10 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == OPEN_COMBINATION_ACTIVITY && resultCode == RESULT_OK && data != null) {
-
+            int boxNumber = data.getIntExtra("box_number", 0);
+            int combination = data.getIntExtra("combination", 1);
+            Box box = boxList.get(boxNumber);
+            box.setWinAmount(box.getBet() * combination);
         }
     }
 }
