@@ -47,7 +47,7 @@ public class HalfCircleListView extends RelativeLayout {
         if (boxes != null) {
             int boxesSize = boxes.size();
             int rows = boxesSize / 2 + boxesSize % 2;
-            int height = 1000 / rows;
+            int height = getHeight() / rows;
             double marginTop = 0;
             int weightCoefficient = 1;
             Context context = getContext();
@@ -58,7 +58,7 @@ public class HalfCircleListView extends RelativeLayout {
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
                 layoutParams.topMargin = (int) marginTop;
                 childLinearLayout.setLayoutParams(layoutParams);
-                marginTop = marginTop + height * 0.95;
+                marginTop += height * 0.35;
                 addView(childLinearLayout);
                 int columns = 2;
                 if (i == 0 && boxesSize % 2 == 1) {
@@ -76,7 +76,7 @@ public class HalfCircleListView extends RelativeLayout {
                         spaceLayoutParams =
                                 new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
                         spaceLayoutParams.weight = weightCoefficient;
-                        weightCoefficient *= 3;
+                        weightCoefficient *= 2 * Math.pow(3, 1 / (1.7d * i));
                         space.setLayoutParams(spaceLayoutParams);
                         childLinearLayout.addView(space);
                     }
@@ -95,7 +95,7 @@ public class HalfCircleListView extends RelativeLayout {
                         return true;
                     });
                     LinearLayout.LayoutParams fabLayoutParams =
-                            new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            new LinearLayout.LayoutParams(150, 150);
                     floatingActionButton.setLayoutParams(fabLayoutParams);
                     childLinearLayout.addView(floatingActionButton);
                 }
