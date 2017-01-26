@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -50,6 +51,10 @@ public class PaymentActivity extends AppCompatActivity {
             halfCircleListView.removeAllViews();
             halfCircleListView.setBoxes(boxList);
             halfCircleListView.setUpView();
+
+            noGameButton.setVisibility(View.VISIBLE);
+            noMoreGameButton.setVisibility(View.GONE);
+            cancelButton.setVisibility(View.GONE);
         });
     }
 
@@ -84,8 +89,28 @@ public class PaymentActivity extends AppCompatActivity {
         if (requestCode == OPEN_COMBINATION_ACTIVITY && resultCode == RESULT_OK && data != null) {
             int boxNumber = data.getIntExtra("box_number", 0);
             int combination = data.getIntExtra("combination", 1);
-            Box box = boxList.get(boxNumber);
-            box.setWinAmount(box.getBet() * combination);
+            Box box = boxList.get(boxNumber - 1);
+            double winAmount = box.getBet() * combination;
+            box.setWinAmount(winAmount);
+            halfCircleListView.setBoxes(boxList);
+            int winAmountCounter = 0;
+            for (Box box1 : boxList) {
+                if (box1.getWinAmount() > 0) {
+                    winAmountCounter++;
+                }
+            }
+            if (winAmountCounter != 0) {
+                noMoreGameButton.setVisibility(View.VISIBLE);
+                if (winAmountCounter == boxList.size()) {
+                    noMoreGameButton.setText(R.string.ok);
+                }
+                noGameButton.setVisibility(View.GONE);
+                cancelButton.setVisibility(View.VISIBLE);
+            } else {
+                noGameButton.setVisibility(View.VISIBLE);
+                noMoreGameButton.setVisibility(View.GONE);
+                cancelButton.setVisibility(View.GONE);
+            }
         }
     }
 }

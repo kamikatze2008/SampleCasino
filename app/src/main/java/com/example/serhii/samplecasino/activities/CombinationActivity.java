@@ -33,8 +33,8 @@ public class CombinationActivity extends AppCompatActivity {
         confirmButton = (Button) findViewById(R.id.confirm_button);
         confirmButton.setOnClickListener(v -> {
             Intent returnIntent = new Intent();
-            intent.putExtra("box_number", boxNumber);
-            intent.putExtra("combination", value);
+            returnIntent.putExtra("box_number", boxNumber);
+            returnIntent.putExtra("combination", value);
             setResult(RESULT_OK, returnIntent);
             finish();
         });
