@@ -28,7 +28,12 @@ public class SetBetActivity extends AppCompatActivity {
         if (boxNumber != -1) {
             confirmButton.setOnClickListener(confirmButtonView -> {
                 setResult(RESULT_OK);
-                Double betValue = Double.parseDouble(betTextView.getText().toString().replace("$", ""));
+                Double betValue;
+                if (confirmButton.getText().toString().length() > 1) {
+                    betValue = Double.parseDouble(betTextView.getText().toString().replace("$", ""));
+                } else {
+                    betValue = 0d;
+                }
                 Toast.makeText(this, "Bet is " + betValue, Toast.LENGTH_SHORT).show();
                 Intent result = new Intent();
                 result.putExtra("bet", betValue);
