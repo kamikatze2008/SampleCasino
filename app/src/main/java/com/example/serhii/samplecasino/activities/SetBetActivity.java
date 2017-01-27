@@ -29,7 +29,7 @@ public class SetBetActivity extends AppCompatActivity {
             confirmButton.setOnClickListener(confirmButtonView -> {
                 setResult(RESULT_OK);
                 Double betValue;
-                if (confirmButton.getText().toString().length() > 1) {
+                if (betTextView.getText().toString().length() > 1) {
                     betValue = Double.parseDouble(betTextView.getText().toString().replace("$", ""));
                 } else {
                     betValue = 0d;
