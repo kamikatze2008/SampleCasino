@@ -96,7 +96,7 @@ public class BoxChooserFragment extends Fragment {
                     .append(box.getBet())
                     .append("|")
                     .append(timestamp)
-                    .append("\n");
+                    .append(";");
         }
         Toast.makeText(getActivity(), stringBuilder.toString(), Toast.LENGTH_LONG).show();
     }

@@ -70,7 +70,8 @@ public class PaymentActivity extends AppCompatActivity {
                             stringBuilder.append("bet_id|")
                                     .append(box.getWinAmount())
                                     .append("|")
-                                    .append(timestamp);
+                                    .append(timestamp)
+                                    .append(";");
 
                         }
                     }
