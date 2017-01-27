@@ -107,15 +107,18 @@ public class BoxChooserFragment extends Fragment {
         if (requestCode == OPEN_SET_BET_ACTIVITY && resultCode == RESULT_OK && data != null) {
             int boxNumber = data.getIntExtra("box_number", -1);
             double bet = data.getDoubleExtra("bet", 0);
-            boolean anyBetWasMade = false;
+            int betCounter = 0;
             for (Box box : boxList) {
                 if (box.getBoxNumber() == boxNumber) {
                     box.setBet(bet);
-                    anyBetWasMade = true;
+                    betCounter++;
                 }
             }
-            if (anyBetWasMade) {
+            if (betCounter > 0) {
                 noMoreBetButton.setVisibility(View.VISIBLE);
+                if (betCounter == boxList.size()) {
+                    noMoreBetButton.setText(R.string.ok);
+                }
                 betButton.setVisibility(View.GONE);
                 cancelAllButton.setVisibility(View.VISIBLE);
             }
