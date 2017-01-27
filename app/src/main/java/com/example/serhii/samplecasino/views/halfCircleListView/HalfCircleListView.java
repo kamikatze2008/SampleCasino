@@ -47,7 +47,7 @@ public class HalfCircleListView extends RelativeLayout {
         if (boxes != null) {
             int boxesSize = boxes.size();
             int rows = boxesSize / 2 + boxesSize % 2;
-            int height = getHeight() / rows;
+            int height = getHeight() / (rows + 1);
             double marginTop = 0;
             int weightCoefficient = 1;
             Context context = getContext();
@@ -58,7 +58,7 @@ public class HalfCircleListView extends RelativeLayout {
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
                 layoutParams.topMargin = (int) marginTop;
                 childLinearLayout.setLayoutParams(layoutParams);
-                marginTop += height * 0.35;
+                marginTop += height * (0.75 / (i == 0 ? 1 : 1 / (double) i));//(i / 2 + 0.2)));
                 addView(childLinearLayout);
                 int columns = 2;
                 if (i == 0 && boxesSize % 2 == 1) {
@@ -95,7 +95,7 @@ public class HalfCircleListView extends RelativeLayout {
                         return true;
                     });
                     LinearLayout.LayoutParams fabLayoutParams =
-                            new LinearLayout.LayoutParams(150, 150);
+                            new LinearLayout.LayoutParams(height, height);
                     floatingActionButton.setLayoutParams(fabLayoutParams);
                     childLinearLayout.addView(floatingActionButton);
                 }
